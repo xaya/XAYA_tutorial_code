@@ -1,4 +1,4 @@
-# XAYA-tutorial-code
+# XAYA Tutorial Code
 
 This repository holds code for various XAYA tutorials.
 
