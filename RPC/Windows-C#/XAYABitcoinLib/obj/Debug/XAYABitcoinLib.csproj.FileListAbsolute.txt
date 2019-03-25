@@ -1,0 +1,16 @@
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\bin\Debug\XAYABitcoinLib.exe.config
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\bin\Debug\XAYABitcoinLib.exe
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\bin\Debug\XAYABitcoinLib.pdb
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\bin\Debug\BitcoinLib.dll
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\bin\Debug\BitcoinLib.pdb
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\obj\Debug\XAYABitcoinLib.csprojResolveAssemblyReference.cache
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\obj\Debug\XAYABitcoinLib.Form1.resources
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\obj\Debug\XAYABitcoinLib.Properties.Resources.resources
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\obj\Debug\XAYABitcoinLib.csproj.GenerateResource.Cache
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\obj\Debug\XAYABitcoinLib.csproj.CoreCompileInputs.cache
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\obj\Debug\XAYABitcoinLib.exe
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\obj\Debug\XAYABitcoinLib.pdb
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\bin\Debug\System.Configuration.ConfigurationManager.dll
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\Renegade\Source\Repos\XAYABitcoinLib\XAYABitcoinLib\bin\Debug\Newtonsoft.Json.xml
