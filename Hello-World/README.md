@@ -1,6 +1,6 @@
 # Hello World!
 
-This repository holds code for various Hello World tutorials.
+This folder holds code for various Hello World tutorials.
 
 Browse to the code by using the GitHub links above.
 
