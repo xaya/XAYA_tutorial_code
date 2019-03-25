@@ -155,7 +155,7 @@ namespace HelloXaya
             }
 
             // Set the URL for libxayagame/XAYAWrapper RPC calls.
-            FLAGS_xaya_rpc_url = Properties.Settings.Default.Username + ":" + Properties.Settings.Default.Password + "@" + Properties.Settings.Default.Host + ":" + Properties.Settings.Default.Port; // URL constructed as "user:pass@host:port".
+            FLAGS_xaya_rpc_url = ConstructRpcUrl(Properties.Settings.Default.Username, Properties.Settings.Default.Password, Properties.Settings.Default.Host, Properties.Settings.Default.Port);
 
             // Get a guaranteed free port. 
             gameHostPort = GetAvailablePort(gameHostPort);
@@ -166,8 +166,8 @@ namespace HelloXaya
                 Properties.Settings.Default.Host, // The host, e.g. localhost or 127.0.0.1
                 gameHostPort.ToString(), // The game host port. Can be any free port.
                 ref result, // An error or success message.
-                CallbackFunctions.initialCallbackResult, 
-                CallbackFunctions.forwardCallbackResult, 
+                CallbackFunctions.initialCallbackResult,
+                CallbackFunctions.forwardCallbackResult,
                 CallbackFunctions.backwardCallbackResult);
 
             // This is a blocking operation, so it must run in it's own thread.
@@ -180,6 +180,19 @@ namespace HelloXaya
                 dataPath + "\\..\\XayaStateProcessor\\database\\", // Path to the database folder, e.g. SQLite.
                 dataPath + "\\..\\XayaStateProcessor\\glogs\\"); // Path to glog output folder.
         }
+
+        private string ConstructRpcUrl(string user, string password, string host, string port)
+        {
+            var builder = new UriBuilder();
+            builder.Host = host.ToLower().Replace("http://", "").Replace("https://", "");
+            builder.Password = password;
+            builder.UserName = user;
+            builder.Port = int.Parse(port);
+
+            string result = builder.Uri.OriginalString;
+            return result;
+        }
+
         #endregion
 
         #region gamestateworker BackgroundWorker thread
@@ -216,7 +229,7 @@ namespace HelloXaya
         {
             BackgroundWorker sendingWorker = (BackgroundWorker)sender; // Get the BackgroundWorker that fired the event.
             object[] arrObjects = (object[])e.Argument; // Create an array of objects from the main thread.
-            
+
             GameState state = new GameState();
 
             while (true)
@@ -227,7 +240,7 @@ namespace HelloXaya
                     {
                         Console.WriteLine("waiting...");
                         wrapper.xayaGameService.WaitForChange();
-                        
+
                         BitcoinLib.Responses.GameStateResult actualState = wrapper.xayaGameService.GetCurrentState();
 
                         if (actualState != null)
@@ -251,7 +264,7 @@ namespace HelloXaya
                         e.Cancel = true;
                         break;
                     }
-                    
+
                     sendingWorker.ReportProgress(0, state); // Report progress to the main thread.
                 }
                 else
@@ -292,7 +305,7 @@ namespace HelloXaya
         {
             // The .cookie file is located here:
             string cookieFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Xaya\.cookie";
-            
+
             if (File.Exists(cookieFile))
             {
                 string text = File.ReadAllText(cookieFile);
@@ -306,15 +319,15 @@ namespace HelloXaya
         {
             if (Properties.Settings.Default.Username.Length > 0 && Properties.Settings.Default.Password.Length > 0)
             {
-            xayaService = new BitcoinLib.Services.Coins.XAYA.XAYAService("http://localhost:8396/wallet/game.dat",
-                Properties.Settings.Default.Username,
-                Properties.Settings.Default.Password,
-                "",
-                10);
+                xayaService = new BitcoinLib.Services.Coins.XAYA.XAYAService("http://localhost:8396/wallet/game.dat",
+                    Properties.Settings.Default.Username,
+                    Properties.Settings.Default.Password,
+                    "",
+                    10);
 
-            PopulateNames();
+                PopulateNames();
 
-            btnStartXayaService.Enabled = false;
+                btnStartXayaService.Enabled = false;
             }
         }
 
@@ -328,17 +341,9 @@ namespace HelloXaya
 
             if (txtHelloWorld.Text.Length < 20)
             {
-                // Guard against JSON injection.
-                bool isBad = IsJson(txtHelloWorld.Text);
-                if (!isBad)
-                {
-                    string hello = "{\"g\":{\"helloworld\":{\"m\":\"" + txtHelloWorld.Text + "\"}}}";
-                    xayaService.NameUpdate(this.cbxNames.GetItemText(this.cbxNames.SelectedItem), hello, new object());
-                }
-                else
-                {
-                    MessageBox.Show("Please don't inject JSON.", "Naughty, naughty!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+                string message = JsonConvert.ToString(txtHelloWorld.Text).Trim('"');
+                string hello = "{\"g\":{\"helloworld\":{\"m\":\"" + message + "\"}}}";
+                xayaService.NameUpdate(this.cbxNames.GetItemText(this.cbxNames.SelectedItem), hello, new object());
             }
             else
             {
@@ -373,7 +378,7 @@ namespace HelloXaya
             {
                 launchWorker.RunWorkerAsync();//Call the background worker
             }
-            
+
             // The wrapper must be connected before we can continue.
             do
             {
@@ -391,7 +396,7 @@ namespace HelloXaya
         }
         #endregion
 
-        private int gameHostPort = 8900;
+        private int gameHostPort = 8900; // 29050 in the C++ version 
 
         public static int GetAvailablePort(int startingPort)
         {
