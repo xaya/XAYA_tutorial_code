@@ -13,6 +13,7 @@ using BitcoinLib.ExceptionHandling.Rpc;
 using BitcoinLib.Responses;
 using BitcoinLib.Services.Coins.Base;
 using BitcoinLib.Services.Coins.XAYA;
+using Newtonsoft.Json.Linq;
 
 namespace XAYABitcoinLib
 {
@@ -74,7 +75,7 @@ namespace XAYABitcoinLib
 
         private void btnUpdateName_Click(object sender, EventArgs e)
         {
-            // We should check that the name doesn't already exist.
+            // We should check that the name exists.
             GetShowNameResponse r = xayaCoinService.ShowName(txtUpdateNameName.Text);
             
             // We must make certain that the name exists.
@@ -89,7 +90,7 @@ namespace XAYABitcoinLib
             // This makes the above check useless, but there are cases where you would want to only check if a name exists irrespective of whether or not the name is owned by you/the player/user.
             if (r.ismine == false)
             {
-                // return;
+                return;
             }
 
             // We should verify that both the name and value are valid. We have a simple Utils class to give us some reusable checks.
@@ -107,6 +108,57 @@ namespace XAYABitcoinLib
 
             // The return value is a txid that we display in the results text box. 
             txtUpdateNameResult.Text += result + "\r\n";
+        }
+
+        private void btnSendName_Click(object sender, EventArgs e)
+        {
+            // We should check that the name exists.
+            GetShowNameResponse r = xayaCoinService.ShowName(txtSendNameName.Text);
+
+            // We must make certain that the name exists.
+            // As per the method's description, numeric fields are -1 if the name does not exist. 
+            // This is a simple error check.
+            if (r.height < 0)
+            {
+                return;
+            }
+
+            // In order to update a name, it must belong to us and be in our wallet. 
+            // This makes the above check useless, but there are cases where you would want to only check if a name exists irrespective of whether or not the name is owned by you/the player/user.
+            if (r.ismine == false)
+            {
+                return;
+            }
+
+            // We should verify that both the name and value are valid. We have a simple Utils class to give us some reusable checks.
+            bool nameIsValid = Utils.IsValidName(txtSendNameName.Text);
+            bool valueIsValid = Utils.IsValidJson(txtSendNameValue.Text);
+
+            if (!nameIsValid || !valueIsValid)
+            {
+                // One of them is invalid, so we cancel the operation.
+                return;
+            }
+
+            // The destination address must be valid. Check to ensure that it is.
+            ValidateAddressResponse validate = xayaCoinService.ValidateAddress(txtSendNameAddress.Text);
+            if (!validate.IsValid)
+            {
+                // The address isn't valid, so we cancel the operation. 
+                return;
+            }
+
+            // Send the name to the CHI address.
+            // When using RPCs, we must send the options, i.e. "destAddress", as a JSON object.
+            // Here we use the Newtonsoft JObject to do that. We create the object and set its value to the address.
+            JObject job = new JObject();
+            job["destAddress"] = txtSendNameAddress.Text;
+
+            // And finally perform the operation to send the name to the CHI address. 
+            string result = xayaCoinService.NameUpdate(txtSendNameName.Text, txtSendNameValue.Text, job);
+
+            // The return value is a txid that we display in the results text box. 
+            txtSendNameResult.Text += result + "\r\n";
         }
 
         private void txtShowName_KeyDown(object sender, KeyEventArgs e)

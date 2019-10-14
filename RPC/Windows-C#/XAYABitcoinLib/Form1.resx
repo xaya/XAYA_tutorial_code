@@ -123,4 +123,10 @@
 Check the code to see how simple it is.
 </value>
   </data>
+  <data name="txtSendNameInfo.Text" xml:space="preserve">
+    <value>Enter a name in the left text box, a JSON value in the centre text box (this can and should remain as the default in there, i.e. do not change this value for this example), and a destination CHI address to send the name to in the right text box. Click "Send Name". 
+
+Check the code to see how simple it is.
+</value>
+  </data>
 </root>

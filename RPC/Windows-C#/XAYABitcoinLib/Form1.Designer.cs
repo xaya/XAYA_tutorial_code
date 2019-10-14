@@ -54,12 +54,20 @@
             this.txtUpdateNameResult = new System.Windows.Forms.TextBox();
             this.txtUpdateNameName = new System.Windows.Forms.TextBox();
             this.btnUpdateName = new System.Windows.Forms.Button();
+            this.tabSendName = new System.Windows.Forms.TabPage();
+            this.txtSendNameAddress = new System.Windows.Forms.TextBox();
+            this.txtSendNameValue = new System.Windows.Forms.TextBox();
+            this.txtSendNameInfo = new System.Windows.Forms.TextBox();
+            this.txtSendNameResult = new System.Windows.Forms.TextBox();
+            this.txtSendNameName = new System.Windows.Forms.TextBox();
+            this.btnSendName = new System.Windows.Forms.Button();
             this.tabXaya.SuspendLayout();
             this.tabShowName.SuspendLayout();
             this.tabRegisterName.SuspendLayout();
             this.tabGetBlockHeight.SuspendLayout();
             this.tabGetWalletNames.SuspendLayout();
             this.tabUpdateName.SuspendLayout();
+            this.tabSendName.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtShowName
@@ -130,6 +138,7 @@
             this.tabXaya.Controls.Add(this.tabGetBlockHeight);
             this.tabXaya.Controls.Add(this.tabGetWalletNames);
             this.tabXaya.Controls.Add(this.tabUpdateName);
+            this.tabXaya.Controls.Add(this.tabSendName);
             this.tabXaya.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabXaya.Location = new System.Drawing.Point(0, 0);
             this.tabXaya.Name = "tabXaya";
@@ -352,6 +361,80 @@
             this.btnUpdateName.UseVisualStyleBackColor = true;
             this.btnUpdateName.Click += new System.EventHandler(this.btnUpdateName_Click);
             // 
+            // tabSendName
+            // 
+            this.tabSendName.Controls.Add(this.txtSendNameAddress);
+            this.tabSendName.Controls.Add(this.txtSendNameValue);
+            this.tabSendName.Controls.Add(this.txtSendNameInfo);
+            this.tabSendName.Controls.Add(this.txtSendNameResult);
+            this.tabSendName.Controls.Add(this.txtSendNameName);
+            this.tabSendName.Controls.Add(this.btnSendName);
+            this.tabSendName.Location = new System.Drawing.Point(4, 22);
+            this.tabSendName.Name = "tabSendName";
+            this.tabSendName.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSendName.Size = new System.Drawing.Size(549, 490);
+            this.tabSendName.TabIndex = 5;
+            this.tabSendName.Text = "Send Name";
+            this.tabSendName.UseVisualStyleBackColor = true;
+            // 
+            // txtSendNameAddress
+            // 
+            this.txtSendNameAddress.Location = new System.Drawing.Point(130, 66);
+            this.txtSendNameAddress.Name = "txtSendNameAddress";
+            this.txtSendNameAddress.Size = new System.Drawing.Size(268, 20);
+            this.txtSendNameAddress.TabIndex = 16;
+            this.txtSendNameAddress.Text = "Enter a CHI address here";
+            // 
+            // txtSendNameValue
+            // 
+            this.txtSendNameValue.Location = new System.Drawing.Point(91, 66);
+            this.txtSendNameValue.Name = "txtSendNameValue";
+            this.txtSendNameValue.Size = new System.Drawing.Size(33, 20);
+            this.txtSendNameValue.TabIndex = 15;
+            this.txtSendNameValue.Text = "{}";
+            // 
+            // txtSendNameInfo
+            // 
+            this.txtSendNameInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSendNameInfo.Location = new System.Drawing.Point(6, 6);
+            this.txtSendNameInfo.Multiline = true;
+            this.txtSendNameInfo.Name = "txtSendNameInfo";
+            this.txtSendNameInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtSendNameInfo.Size = new System.Drawing.Size(537, 54);
+            this.txtSendNameInfo.TabIndex = 12;
+            this.txtSendNameInfo.Text = resources.GetString("txtSendNameInfo.Text");
+            // 
+            // txtSendNameResult
+            // 
+            this.txtSendNameResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSendNameResult.Location = new System.Drawing.Point(6, 92);
+            this.txtSendNameResult.Multiline = true;
+            this.txtSendNameResult.Name = "txtSendNameResult";
+            this.txtSendNameResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtSendNameResult.Size = new System.Drawing.Size(537, 392);
+            this.txtSendNameResult.TabIndex = 14;
+            // 
+            // txtSendNameName
+            // 
+            this.txtSendNameName.Location = new System.Drawing.Point(6, 66);
+            this.txtSendNameName.Name = "txtSendNameName";
+            this.txtSendNameName.Size = new System.Drawing.Size(79, 20);
+            this.txtSendNameName.TabIndex = 11;
+            this.txtSendNameName.Text = "p/";
+            // 
+            // btnSendName
+            // 
+            this.btnSendName.Location = new System.Drawing.Point(404, 64);
+            this.btnSendName.Name = "btnSendName";
+            this.btnSendName.Size = new System.Drawing.Size(132, 23);
+            this.btnSendName.TabIndex = 13;
+            this.btnSendName.Text = "Send Name";
+            this.btnSendName.UseVisualStyleBackColor = true;
+            this.btnSendName.Click += new System.EventHandler(this.btnSendName_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -372,6 +455,8 @@
             this.tabGetWalletNames.PerformLayout();
             this.tabUpdateName.ResumeLayout(false);
             this.tabUpdateName.PerformLayout();
+            this.tabSendName.ResumeLayout(false);
+            this.tabSendName.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -403,6 +488,13 @@
         private System.Windows.Forms.TextBox txtUpdateNameResult;
         private System.Windows.Forms.TextBox txtUpdateNameName;
         private System.Windows.Forms.Button btnUpdateName;
+        private System.Windows.Forms.TabPage tabSendName;
+        private System.Windows.Forms.TextBox txtSendNameAddress;
+        private System.Windows.Forms.TextBox txtSendNameValue;
+        private System.Windows.Forms.TextBox txtSendNameInfo;
+        private System.Windows.Forms.TextBox txtSendNameResult;
+        private System.Windows.Forms.TextBox txtSendNameName;
+        private System.Windows.Forms.Button btnSendName;
     }
 }
 
