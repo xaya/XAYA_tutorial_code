@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright (C) 2019 The Xaya developers
+# Copyright (C) 2019-2020 The Xaya developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,14 +20,14 @@ class HelloWorldTest (XayaGameTest):
     self.expectGameState ({})
 
     self.sendMove ("bar", 42)
-    self.sendMove ("foo", "Hello World!")
+    self.sendMove ("foo", {"m":"Hello World!"})
     self.generate (1)
     self.expectGameState ({
       "foo": "Hello World!",
     })
 
-    self.sendMove ("bar", "Also hello from me!")
-    self.sendMove ("foo", "Another message")
+    self.sendMove ("bar", {"m":"Also hello from me!"})
+    self.sendMove ("foo", {"m":"Another message"})
     self.generate (1)
     self.expectGameState ({
       "bar": "Also hello from me!",
