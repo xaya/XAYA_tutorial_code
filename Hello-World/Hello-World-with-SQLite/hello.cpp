@@ -1,4 +1,4 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019-2020 The Xaya developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -74,9 +74,9 @@ protected:
    * version.
    */
   void
-  SetupSchema (sqlite3* db) override
+  SetupSchema (xaya::SQLiteDatabase& db) override
   {
-    auto* stmt = PrepareStatement (R"(
+    auto* stmt = db.Prepare (R"(
       CREATE TABLE IF NOT EXISTS `messages` (
         `name` TEXT PRIMARY KEY,
         `msg` TEXT NOT NULL
@@ -125,7 +125,7 @@ protected:
    * before the processing of moves starts.
    */
   void
-  InitialiseState (sqlite3* db) override
+  InitialiseState (xaya::SQLiteDatabase& db) override
   {
     /* For our game, the initial state is simply an empty database (noone
        said anything so far).  But we could set some hardcoded initial
@@ -136,7 +136,7 @@ protected:
    * Updates the game state for a new block with (potentially) moves.
    */
   void
-  UpdateState (sqlite3* db, const Json::Value& blockData) override
+  UpdateState (xaya::SQLiteDatabase& db, const Json::Value& blockData) override
   {
     // Iterate over all the moves in the block data. 
     for (const auto& entry : blockData["moves"])
@@ -171,7 +171,7 @@ protected:
         std::cout << name << " said " << message << "\r\n";
 
         /* Update the game state (i.e. database) for the new message.  */
-        auto* stmt = PrepareStatement (R"(
+        auto* stmt = db.Prepare (R"(
           INSERT OR REPLACE INTO `messages`
             (`name`, `msg`) VALUES (?1, ?2)
         )");
@@ -186,11 +186,11 @@ protected:
    * in JSON format.
    */
   Json::Value
-  GetStateAsJson (sqlite3* db) override
+  GetStateAsJson (const xaya::SQLiteDatabase& db) override
   {
     Json::Value state(Json::objectValue);
 
-    auto* stmt = PrepareStatement (R"(
+    auto* stmt = db.PrepareRo (R"(
       SELECT `name`, `msg` FROM `messages`
     )");
     while (true)
