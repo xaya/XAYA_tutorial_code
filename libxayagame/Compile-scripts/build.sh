@@ -1,4 +1,4 @@
-https://github.com/xaya/XAYA_tutorial_code.git
+pacman -Sy
 pacman -S base-devel git mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake autoconf-archive mingw-w64-x86_64-protobuf mingw-w64-x86_64-gtest mingw-w64-x86_64-gflags mingw-w64-x86_64-zeromq mingw-w64-x86_64-openssl mingw-w64-x86_64-glog mingw-w64-x86_64-lmdb mingw-w64-x86_64-lmdbxx mingw-w64-x86_64-sqlite3 mingw-w64-x86_64-libmicrohttpd wget
 pacman -U http://repo.msys2.org/mingw/x86_64/mingw-w64-x86_64-jsoncpp-1.9.2-1-any.pkg.tar.xz
 git clone https://github.com/RyuMaster/argtable2.git
