@@ -20,7 +20,6 @@ cp -r ./ /home/../mingw64/
 cd ~/
 curl -o /home/../mingw64/lib/pkgconfig/libglog.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/libglog.pc
 curl -o /home/../mingw64/lib/pkgconfig/lmdb.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/lmdb.pc
-pacman -U http://repo.msys2.org/mingw/x86_64/mingw-w64-x86_64-jsoncpp-1.9.2-1-any.pkg.tar.xz
 git clone https://github.com/xaya/libxayagame.git
 cd libxayagame
 ./autogen.sh
