@@ -22,6 +22,8 @@ curl -o /home/../mingw64/lib/pkgconfig/libglog.pc https://raw.githubusercontent.
 curl -o /home/../mingw64/lib/pkgconfig/lmdb.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/lmdb.pc
 git clone https://github.com/xaya/libxayagame.git
 cd libxayagame
+curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff
+patch --merge configure.ac configure_patch.diff
 ./autogen.sh
 ./configure
 make -j2
