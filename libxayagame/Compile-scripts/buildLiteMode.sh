@@ -31,6 +31,7 @@ make
 make install
 cd ..
 git clone https://github.com/xaya/xmppbroadcast
+cd xmppbroadcast
 curl -o xmppbroadcast_configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/xmppbroadcast_configure_patch.diff
 patch --merge configure.ac xmppbroadcast_configure_patch.diff
 ./autogen.sh
