@@ -1,0 +1,5 @@
+16a17,20
+> AX_CHECK_COMPILE_FLAG([-Werror], [CXXFLAGS="${CXXFLAGS} -Werror"])
+> AX_CHECK_COMPILE_FLAG([-pedantic], [CXXFLAGS="${CXXFLAGS} -pedantic"])
+> AX_CHECK_COMPILE_FLAG([-Wno-deprecated],
+>                       [CXXFLAGS="${CXXFLAGS} -Wno-deprecated"])
