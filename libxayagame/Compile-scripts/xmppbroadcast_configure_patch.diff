@@ -1,3 +1,5 @@
-16a17,18
+17,18c17
 < AX_CHECK_COMPILE_FLAG([-Werror], [CXXFLAGS+=" -Werror"])
 < AX_CHECK_COMPILE_FLAG([-pedantic], [CXXFLAGS+=" -pedantic"])
+---
+> AX_CHECK_COMPILE_FLAG([-fpermissive], [CXXFLAGS+=" -fpermissive"])
