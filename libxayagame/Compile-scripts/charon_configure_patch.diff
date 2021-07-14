@@ -1,8 +1,5 @@
-17a18,19
-> AX_CHECK_COMPILE_FLAG([-Werror], [CXXFLAGS="${CXXFLAGS} -Werror"])
-> AX_CHECK_COMPILE_FLAG([-pedantic], [CXXFLAGS="${CXXFLAGS} -pedantic"])
-24,27d25
-< 
-< PKG_CHECK_MODULES([GNUTLS], [gnutls >= 2.12], [gnutls=yes], [gnutls=no])
-< LIBS="${LIBS} ${GNUTLS_LIBS}"
-< CPPFLAGS="${CPPFLAGS} ${GNUTLS_CFLAGS}"
+18,19c18
+< AX_CHECK_COMPILE_FLAG([-Werror], [CXXFLAGS="${CXXFLAGS} -Werror"])
+< AX_CHECK_COMPILE_FLAG([-pedantic], [CXXFLAGS="${CXXFLAGS} -pedantic"])
+---
+> AX_CHECK_COMPILE_FLAG([-fpermissive], [CXXFLAGS="${CXXFLAGS} -fpermissive"])

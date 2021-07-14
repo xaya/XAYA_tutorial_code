@@ -7,6 +7,8 @@ patch --merge configure.ac gloox_configure_patch.diff
 cd src
 curl -o gloox_config_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/gloox_config_patch.diff
 patch --merge config.h gloox_config_patch.diff
+curl -o gloox_tlsopensslbase.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/gloox_tlsopensslbase.diff
+patch --merge tlsopensslbase.cpp gloox_tlsopensslbase.diff
 cd ..
 ./configure --with-examples=no
 make

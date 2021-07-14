@@ -1,0 +1,2 @@
+350a351
+>     m_certInfo.chain = (m_certInfo.status == CertOk);
