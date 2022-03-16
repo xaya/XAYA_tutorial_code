@@ -21,15 +21,19 @@ cd ~/
 curl -o /home/../mingw64/lib/pkgconfig/libglog.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/libglog.pc
 curl -o /home/../mingw64/lib/pkgconfig/lmdb.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/lmdb.pc
 git clone https://github.com/bitcoin-core/secp256k1.git
+cd secp256k1
 ./autogen.sh
 ./configure --disable-tests --disable-benchmark --enable-module-recovery
 make
 make install
+cd ..
 git clone https://github.com/xaya/eth-utils.git
+cd eth-utils
 ./autogen.sh
 ./configure
 make
 make install
+cd ..
 git clone https://github.com/xaya/libxayagame.git
 cd libxayagame
 curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff
