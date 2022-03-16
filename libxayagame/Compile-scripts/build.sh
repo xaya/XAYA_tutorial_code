@@ -20,12 +20,12 @@ cp -r ./ /home/../mingw64/
 cd ~/
 curl -o /home/../mingw64/lib/pkgconfig/libglog.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/libglog.pc
 curl -o /home/../mingw64/lib/pkgconfig/lmdb.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/lmdb.pc
-git clone -b https://github.com/bitcoin-core/secp256k1
+git clone https://github.com/bitcoin-core/secp256k1.git
 ./autogen.sh
 ./configure --disable-tests --disable-benchmark --enable-module-recovery
 make
 make install
-git clone -b https://github.com/xaya/eth-utils
+git clone https://github.com/xaya/eth-utils.git
 ./autogen.sh
 ./configure
 make
