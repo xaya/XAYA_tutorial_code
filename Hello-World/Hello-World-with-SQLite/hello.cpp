@@ -37,21 +37,18 @@ DEFINE_string (datadir, "",
  * Binds a string parameter in an SQLite prepared statement.
  */
 void
-BindString (sqlite3_stmt* stmt, const int pos, const std::string& val)
+BindString (xaya::SQLiteDatabase::Statement* stmt, const int pos, const std::string& val)
 {
-  CHECK_EQ (sqlite3_bind_text (stmt, pos, &val[0], val.size (),
-                               SQLITE_TRANSIENT),
-            SQLITE_OK);
+  stmt->Bind(pos, val);
 }
 
 /**
  * Retrieves a column value from an SQLite statement as string.
  */
 std::string
-GetStringColumn (sqlite3_stmt* stmt, const int pos)
+GetStringColumn (xaya::SQLiteDatabase::Statement* stmt, const int pos)
 {
-  const unsigned char* str = sqlite3_column_text (stmt, pos);
-  return reinterpret_cast<const char*> (str);
+  return stmt->Get<std::string>(pos);
 }
 
 /**
@@ -76,13 +73,13 @@ protected:
   void
   SetupSchema (xaya::SQLiteDatabase& db) override
   {
-    auto* stmt = db.Prepare (R"(
+    xaya::SQLiteDatabase::Statement stmt = db.Prepare(R"(
       CREATE TABLE IF NOT EXISTS `messages` (
         `name` TEXT PRIMARY KEY,
         `msg` TEXT NOT NULL
       )
     )");
-    CHECK_EQ (sqlite3_step (stmt), SQLITE_DONE);
+    stmt.Step();
   }
 
   /**
@@ -140,45 +137,45 @@ protected:
   {
     // Iterate over all the moves in the block data. 
     for (const auto& entry : blockData["moves"])
-      {
-        // Get the name and the move into variables. 
-        const std::string name = entry["name"].asString ();
-        const auto& mvData = entry["move"];
+    {
+      // Get the name and the move into variables. 
+      const std::string name = entry["name"].asString ();
+      const auto& mvData = entry["move"];
 
-        /* Move data is entered by the users, so it can be anything.  We have
-           to ensure that it is properly verified and only valid moves are
-           accepted. */
-        if (!mvData.isObject ())
-          {
-            LOG (WARNING)
-                << "Move data for " << name << " is not an object: " << mvData;
-            continue;
-          }
+      /* Move data is entered by the users, so it can be anything.  We have
+          to ensure that it is properly verified and only valid moves are
+          accepted. */
+      if (!mvData.isObject ())
+        {
+          LOG (WARNING)
+              << "Move data for " << name << " is not an object: " << mvData;
+          continue;
+        }
 
-        // Store the message to use below.
-        const auto& message = mvData["m"];
+      // Store the message to use below.
+      const auto& message = mvData["m"];
 
-        // Another error check
-        if (!message.isString ())
-          {
-            LOG (WARNING)
-                << "Message data for " << name
-                << " is not a string: " << message;
-            continue;
-          }
+      // Another error check
+      if (!message.isString ())
+        {
+          LOG (WARNING)
+              << "Message data for " << name
+              << " is not a string: " << message;
+          continue;
+        }
 
-        // Some output is nice.
-        std::cout << name << " said " << message << "\r\n";
+      // Some output is nice.
+      std::cout << name << " said " << message << "\r\n";
 
-        /* Update the game state (i.e. database) for the new message.  */
-        auto* stmt = db.Prepare (R"(
-          INSERT OR REPLACE INTO `messages`
-            (`name`, `msg`) VALUES (?1, ?2)
-        )");
-        BindString (stmt, 1, name);
-        BindString (stmt, 2, message.asString ());
-        CHECK_EQ (sqlite3_step (stmt), SQLITE_DONE);
-      }
+      /* Update the game state (i.e. database) for the new message.  */
+      xaya::SQLiteDatabase::Statement stmt = db.Prepare(R"(
+        INSERT OR REPLACE INTO `messages`
+          (`name`, `msg`) VALUES (?1, ?2)
+      )");
+      BindString (&stmt, 1, name);
+      BindString (&stmt, 2, message.asString ());
+      stmt.Step();
+    }
   }
 
   /**
@@ -190,18 +187,18 @@ protected:
   {
     Json::Value state(Json::objectValue);
 
-    auto* stmt = db.PrepareRo (R"(
+    xaya::SQLiteDatabase::Statement stmt = db.PrepareRo (R"(
       SELECT `name`, `msg` FROM `messages`
     )");
     while (true)
       {
-        const int rc = sqlite3_step (stmt);
-        if (rc == SQLITE_DONE)
+        const bool rc = stmt.Step();
+        if (!rc)
           break;
-        CHECK_EQ (rc, SQLITE_ROW);
+        CHECK_EQ (rc, true);
 
-        const std::string name = GetStringColumn (stmt, 0);
-        const std::string msg = GetStringColumn (stmt, 1);
+        const std::string name = GetStringColumn (&stmt, 0);
+        const std::string msg = GetStringColumn (&stmt, 1);
         state[name] = msg;
       }
 
